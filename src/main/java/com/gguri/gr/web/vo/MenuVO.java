@@ -4,10 +4,11 @@ public class MenuVO {
 	private String month;
 	private String day;
 	private String mealtime;
+	private String all_menu;
 	
 	@Override
 	public String toString() {
-		return "MenuVO [month=" + month + ", day=" + day + ", mealtime=" + mealtime + "]";
+		return "MenuVO [month=" + month + ", day=" + day + ", mealtime=" + mealtime + ", all_menu=" + all_menu + "]";
 	}
 	
 	public String getMonth() {
@@ -28,5 +29,12 @@ public class MenuVO {
 	public void setMealtime(String mealtime) {
 		this.mealtime = mealtime;
 	}
+	public String getAll_menu() {
+		return all_menu;
+	}
+	public void setAll_menu(String all_menu) {
+		this.all_menu = all_menu;
+	}
+	
 	
 }

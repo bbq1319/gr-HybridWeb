@@ -32,6 +32,7 @@ public class MenuController {
 		try {
 			menuVO.setDay(paramMap.get("month").toString());
 			menuVO.setDay(paramMap.get("day").toString());
+			menuVO.setAll_menu(paramMap.get("all_menu").toString());
 			map = menuService.getMenu(menuVO);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.gguri.gr.web.mapper.BusMapper">
 
-	<select id="getBustable" parameterType="hashmap" resultType="hashmap">
+	<select id="getBustable" parameterType="hashmap" resultType="com.gguri.gr.web.vo.BusVO">
 		/* getBustable */
 		select * from bus_table
 	</select>

@@ -66,7 +66,7 @@
 					
 					<!-- 오늘의 식단 -->
 					<div class="row">
-						<a href="https://www.ggu.ac.kr/sub01080101">
+						<a href="/menu">
 							<div class="detail">→</div>
 							<div class="title">오늘의 학식</div>
 						</a>
@@ -98,17 +98,20 @@
 					
 					<!-- 버스시간표 -->
 					<div class="row">
-						<div class="detail">→</div>
-						<div class="title">
-							현재 탈 수 있는 버스는?
+						<a href="bus">
+							<div class="detail">→</div>
+							<div class="title">현재 탈 수 있는 버스는?</div>
+						</a>
+						
+						<div class="bus_ter">
+							<div>학교 > 터미널</div>
+							<div></div>	
 						</div>
 						
-						<div></div>
-						
-						터미널 > 학교 15:30
-						<br>
-						학교 > 터미널 15:00
-						<br>
+						<div class="bus_sch">
+							<div>터미널 > 학교</div>
+							<div></div>	
+						</div>
 					</div>
 				</div>
 			</div>
@@ -154,6 +157,10 @@
 			$.ajax({
 				type : "POST",
 				url : "/notice/getNotice.json",
+				beforeSend : function(xhr) {   
+					/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
 				data : {page: 1, isMain: 'Y'},
 				datatype : "json",
 				success : function(data) {
@@ -242,17 +249,22 @@
 				cur_f_month = "0" + cur_month;
 			else 
 				cur_f_month = cur_month;
-			if(cur_f_day < 10) 
+			
+			if(cur_day < 10) 
 				cur_f_day = "0" + cur_day;
 			else 
 				cur_f_day = cur_day;
 			
-			$("#today").html(cur_f_month + "." + cur_day);
+			$("#today").html(cur_f_month + "." + cur_f_day);
 			
 			$.ajax({
 				type : "POST",
 				url : "/menu/getMenu.json",
-				data : {month: cur_month, day: cur_day},
+				beforeSend : function(xhr) {   
+					/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+				data : {month: cur_month, day: cur_day, all_menu: "N"},
 				datatype : "json",
 				success : function(data) {
 					$("#breakfast").html(data.todayBreakfast.replace(/\s/g, '<br>'));
@@ -268,7 +280,73 @@
 		}
 		
 		function getBusTime() {
+			var date = new Date();
+			var cur_hour;
+			var cur_min;
+			var cur_time;
 			
+			var bus_time;
+			var cur_bus_time = "";
+			
+			if(date.getHours() < 10)
+				cur_hour = "0" + date.getHours();
+			else
+				cur_hour = date.getHours() + "";
+			if(date.getMinutes() < 10)
+				cur_min = "0" + date.getMinutes();
+			else
+				cur_min = date.getMinutes() + "";
+			
+			cur_time = cur_hour + ":" + cur_min; 
+			
+			$.ajax({
+				type : "POST",
+				url : "/bus/getBustable.json",
+				beforeSend : function(xhr) {   
+					/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+				data : {curTime: cur_time},
+				datatype : "json",
+				success : function(data) {
+					console.log(data);
+					
+					to_ter_list = data.schList;
+					to_sch_list = data.terList;
+					
+					for(var i=0; i<to_ter_list.length; i++) {
+						bus_time = to_ter_list[i].time_start;
+						if(cur_time > bus_time) {
+							cur_bus_time = bus_time;
+						}
+					}
+					if(cur_bus_time == "" || cur_bus_time == null) {
+						cur_bus_time = to_ter_list[0].time_start;
+					}
+					$(".bus_ter").children().eq(1).html(cur_bus_time);
+					cur_bus_time = "";
+					
+					for(var i=0; i<to_sch_list.length; i++) {
+						bus_time = to_sch_list[i].time_start;
+						if(cur_time > bus_time) {
+							cur_bus_time = bus_time;
+						}
+					}
+					if(cur_bus_time == "" || cur_bus_time == null) {
+						cur_bus_time = to_sch_list[0].time_start;
+					}
+					$(".bus_sch").children().eq(1).html(cur_bus_time);					
+				},
+				error : function(xhr, status, error) {
+					console.log("xhr : " + xhr);
+					console.log("status : " + status);
+					console.log("error : " + error);
+				}
+			});
 		}
+		
+		var info = '${user_info}';
+		console.log(info == "");
+		console.log(info);
 	</script>
 </html>

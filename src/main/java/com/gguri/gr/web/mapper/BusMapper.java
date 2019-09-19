@@ -1,6 +1,6 @@
 package com.gguri.gr.web.mapper;
 
-import java.util.Map;
+import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -10,6 +10,6 @@ import com.gguri.gr.web.vo.BusVO;
 @MapperScan
 public interface BusMapper {
 	
-	Map getBustable(BusVO busVO);
+	List<BusVO> getBustable(BusVO busVO);
 
 }

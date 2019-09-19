@@ -17,6 +17,7 @@ import com.gguri.gr.web.vo.BusVO;
 import com.gguri.gr.web.vo.MenuVO;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
+@RequestMapping("/bus")
 @Controller
 public class BusController {
 	
@@ -30,6 +31,7 @@ public class BusController {
 	public Map getBustable(@RequestParam Map paramMap, BusVO busVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		try {
+			busVO.setCurTime(paramMap.get("curTime").toString());
 			map = busService.getBustable(busVO);
 		} catch (Exception e) {
 			e.printStackTrace();

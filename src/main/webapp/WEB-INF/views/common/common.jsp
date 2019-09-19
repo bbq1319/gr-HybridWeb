@@ -3,16 +3,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page import="com.gguri.gr.common.ServerCode"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta charset="UTF-8">
+
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+
 <%
 	String contextPath = request.getContextPath();
 %>
 <c:set var="contextPath" value="<%=contextPath %>"></c:set>
 
 <!-- 로그인한 사용자 ID -->
-<%-- <c:set var="user_id" value="${sessionScope.loginInfo.id}" /> --%>
+<c:set var="user_info" value="${sessionScope.loginInfo}" />
+<c:set var="user_id" value="${sessionScope.loginInfo.id}" />
+<c:set var="user_nm" value="${sessionScope.loginInfo.nm}" />
+<c:set var="user_stu_no" value="${sessionScope.loginInfo.stu_no}" />
+<c:set var="user_sex" value="${sessionScope.loginInfo.sex}" />
+<c:set var="user_type" value="${sessionScope.loginInfo.type}" />
+<c:set var="user_major" value="${sessionScope.loginInfo.major}" />
+<c:set var="user_sub_major" value="${sessionScope.loginInfo.sub_major}" />
+<c:set var="user_birth" value="${sessionScope.loginInfo.birth}" />
 
 <!-- 공통 에러코드 -->
 <c:set var="result_success" value="${ServerCode.RESULT_SUCCESS }" />
@@ -28,7 +43,7 @@
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.min.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="/resources/css/style.css?ver=1245">
+<link rel="stylesheet" href="/resources/css/style.css?ver=test_39">
 
 <!-- ICON -->
 <!-- <link rel="shortcut icon" href="/img/favicon.png">
@@ -51,7 +66,7 @@
 	 */
 	function textLengthOverCut(txt, len, lastTxt) {
 	    if (len == "" || len == null) { // 기본값
-	        len = 20;
+	        len = 18;
 	    }
 	    if (lastTxt == "" || lastTxt == null) { // 기본값
 	        lastTxt = "...";
@@ -101,5 +116,9 @@
 			cur_seconds = date.getSeconds() + "";
 		
 		return cur_hour + cur_min + cur_seconds;
+	}
+	
+	function getUserInfo() {
+		
 	}
 </script>
