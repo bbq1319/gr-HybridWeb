@@ -1,3 +1,6 @@
+<%@page import="com.gguri.gr.common.CommonUtil"%>
+<%@page import="org.springframework.security.core.context.SecurityContextHolder"%>
+<%@page import="org.springframework.security.core.Authentication"%>
 <%@ page language="java" contentType="text/HTML;charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -5,6 +8,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page import="com.gguri.gr.common.ServerCode"%>
+<%@page import="com.gguri.gr.web.vo.UserVO"%>
+<%
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	Object principal = auth.getPrincipal();
+	
+	String 
+		id = "",
+		name = "",
+		sex = "",
+		birth = "",
+		//email = "",
+		type = "",
+		major = "",
+		sub_major = "",
+		stu_no = "";
+	
+	
+	System.out.println("common.jsp");
+	CommonUtil.getVO(principal);
+	
+	if(principal != null && principal instanceof UserVO) {
+		id = ((UserVO)principal).getId();
+		name = ((UserVO)principal).getNm();
+		sex = ((UserVO)principal).getSex().equals("M") ? "남" : "여";
+		birth = ((UserVO)principal).getBirth();
+		type = ((UserVO)principal).getType();
+		major = ((UserVO)principal).getMajor();
+		sub_major = ((UserVO)principal).getSub_major();
+		stu_no = ((UserVO)principal).getStu_no();
+	}
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 <meta charset="UTF-8">

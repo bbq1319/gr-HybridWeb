@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gguri.gr.common.CommonUtil;
 import com.gguri.gr.web.vo.UserVO;
 
 /**
@@ -28,11 +29,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.GET})
-	public String home(Locale locale, Model model, @AuthenticationPrincipal UserVO userVO, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("home!!");
-		logger.info("request : " , request);
-		logger.info("response : " , response);
-		CommonUtil.getVO(userVO);
+	public String home(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 		return "main";
 	}
 	
@@ -54,12 +51,14 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
 	public String login(Locale locale, Model model, @AuthenticationPrincipal UserVO userVO, HttpServletRequest request, HttpServletResponse response) {
 		String url = "";
-		logger.info("login!!");
-		logger.info("request : " , request);
-		logger.info("response : " , response);
-		CommonUtil.getVO(userVO);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = auth.getPrincipal();
 		
-		url = "/common/login";
+		if(principal != null && principal instanceof UserVO && !((UserVO)principal).getId().isEmpty()) {
+			url = "/common/info";
+		} else {
+			url = "/common/login";
+		}
 		
 		return url;
 	}

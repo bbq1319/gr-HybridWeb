@@ -348,5 +348,7 @@
 		var info = '${user_info}';
 		console.log(info == "");
 		console.log(info);
+		
+		console.log("<%=name%>");
 	</script>
 </html>
