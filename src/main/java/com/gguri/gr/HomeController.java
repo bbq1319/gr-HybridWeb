@@ -50,15 +50,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
 	public String login(Locale locale, Model model, @AuthenticationPrincipal UserVO userVO, HttpServletRequest request, HttpServletResponse response) {
-		String url = "";
+		String url = "/common/login";
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = auth.getPrincipal();
 		
-		if(principal != null && principal instanceof UserVO && !((UserVO)principal).getId().isEmpty()) {
-			url = "/common/info";
-		} else {
-			url = "/common/login";
-		}
+		if(auth != null) {
+			Object principal = auth.getPrincipal();
+			if(principal != null && principal instanceof UserVO && !((UserVO)principal).getId().isEmpty()) {
+				url = "/common/info";
+			} 
+		} 
 		
 		return url;
 	}

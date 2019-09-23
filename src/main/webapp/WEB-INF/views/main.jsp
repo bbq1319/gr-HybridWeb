@@ -131,6 +131,7 @@
 			getNotice();
 			getMenu();
 			getBusTime();
+			hideLoadingBar();
 		});
 		
 		function hideLoadingBar() {
@@ -232,7 +233,6 @@
 				href = 'https://www.ggu.ac.kr' + content[i].noticeURL;
 				notice_html.eq(i).find('td').eq(0).html("<a href=" + href + ">" + textLengthOverCut(content[i].noticeTitle) + "</a>");
 				notice_html.eq(i).find('td').eq(1).html(content[i].noticeDay);	
-				hideLoadingBar();
 			}
 		}
 	
@@ -344,11 +344,5 @@
 				}
 			});
 		}
-		
-		var info = '${user_info}';
-		console.log(info == "");
-		console.log(info);
-		
-		console.log("<%=name%>");
 	</script>
 </html>

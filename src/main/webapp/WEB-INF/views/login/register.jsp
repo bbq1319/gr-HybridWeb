@@ -158,8 +158,6 @@
 		/**
 		 * 회원가입 검증 
 		 * 2019.08.12
-		 * 
-		 *  
 		 */
 		 
 		var id_confirm = false;
@@ -281,6 +279,9 @@
 			
 			
 			if(valid) {
+				var birth = year+"-"+month+"-"+day;
+				var data = $("#fm").serialize() + "&birth=" + birth;
+				
 				$.ajax({
 					type : "POST",
 					url : "/login/createUser.json",
@@ -288,18 +289,9 @@
 						/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 						xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 		            },
-					data : $("#fm").serialize(),
+					data : data,
 					datatype : "json",
 					success : function(data) {
-						console.log(data);
-						console.log(${result_success});
-						console.log(${result_error});
-						console.log(${result_server_error});
-						
-						console.log(data.RESULT_CODE == ${result_success});
-						console.log(data.RESULT_CODE == ${result_error});
-						console.log(data.RESULT_CODE == ${result_server_error});
-						
 						if(data.RESULT_CODE == ${result_success}) {
 							alert("가입이 완료되었습니다");
 							location.replace("/");

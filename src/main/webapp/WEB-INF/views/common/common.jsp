@@ -11,7 +11,7 @@
 <%@page import="com.gguri.gr.web.vo.UserVO"%>
 <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	Object principal = auth.getPrincipal();
+	Object principal = auth!=null ? auth.getPrincipal() : null;
 	
 	String 
 		id = "",
@@ -23,10 +23,6 @@
 		major = "",
 		sub_major = "",
 		stu_no = "";
-	
-	
-	System.out.println("common.jsp");
-	CommonUtil.getVO(principal);
 	
 	if(principal != null && principal instanceof UserVO) {
 		id = ((UserVO)principal).getId();
@@ -77,7 +73,7 @@
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.min.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="/resources/css/style.css?ver=test_39">
+<link rel="stylesheet" href="/resources/css/style.css?ver=test_40">
 
 <!-- ICON -->
 <!-- <link rel="shortcut icon" href="/img/favicon.png">

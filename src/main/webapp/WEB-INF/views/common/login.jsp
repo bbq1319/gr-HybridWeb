@@ -41,47 +41,11 @@
 	</body>
 	
 	<script>
+		var msg = "<%= request.getAttribute("errorMsg") %>";
 		
-		var url = window.location.host;
-		var error = window.location.search;
-		var param = {};
-		
-		error.replace(
-	        new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
-	        function( $0, $1, $2, $3 ){
-	        	param[ $1 ] = $3;
-	        }
-	    );
-		
-		if(param["error"] == "true") {
-			alert("아이디 또는 비밀번호 오류입니다");
-			history.replaceState({}, null, location.pathname);
+		if(msg != "null") {
+			alert(msg);	
+			location.href="/login";
 		}
-
-		/*
-		$("input[name=submit]").click(function() {
-			console.log($("#fm").serialize());
-			
-			
-			$.ajax({
-				type : "POST",
-				url : "/login/validUserCheck.json",
-				beforeSend : function(xhr) {   
-					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-		        },
-				data : $("#fm").serialize(),
-				datatype : "json",
-				success : function(data) {
-					console.log(data);
-					alert("asd");
-				},
-				error : function(xhr, status, error) {
-					console.log("xhr : " + xhr);
-					console.log("status : " + status);
-					console.log("error : " + error);
-				}
-			});
-		});
-		*/
 	</script>
 </html>
