@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gguri.gr.web.mapper.LoginMapper">
+
+	<select id="checkIdDuplicate" parameterType="String" resultType="String">
+		/* checkIdDuplicate */
+		select id from member where id = #{id}
+	</select>
+	
+	<insert id="createUser">
+		/* createUser */
+		INSERT INTO member
+			(
+				id,
+				pw,
+				nm,
+				stu_no,
+				sex,
+				type,
+				major,
+				sub_major,
+				birth,
+				auth,
+				regdate
+			)
+		VALUES
+			(
+				#{id},
+				#{pw},
+				#{nm},
+				#{stu_no},
+				#{sex},
+				#{type},
+				#{major},
+				#{sub_major},
+				#{birth},
+				10,
+				now()
+			)
+	</insert>
+	
+	<select id="validUserCheck" resultType="com.gguri.gr.web.vo.UserVO">
+		/* validUserCheck */
+		select a.*, b.groups
+		from member a
+		left join (
+			select * from member_authority
+		)b on a.auth = b.auth_code
+		where a.id = #{id};
+	</select>
+	
+</mapper>

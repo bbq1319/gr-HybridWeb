@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:mvc="http://www.springframework.org/schema/mvc"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security.xsd
+                                 http://www.springframework.org/schema/mvc
+								 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        
+        <!-- 참고 사이트 -->
+        <!-- https://sjh836.tistory.com/165 -->
+        <!-- https://debugdaldal.tistory.com/88-->
+        <!-- https://otrodevym.tistory.com/entry/Spring-Security-정리2-DB-연결?category=815039 -->
+        <!-- https://minwan1.github.io/2017/04/22/2017-04-22-spring-security-implement/ -->
+        
+        <beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
+        <beans:bean id="customLoginSuccessHandler" class="com.gguri.gr.common.security.CustomLoginSuccessHandler" />
+        <beans:bean id="customLoginFailureHandler" class="com.gguri.gr.common.security.CustomLoginFailureHandler" />
+        <beans:bean id="customUserDetailService" class="com.gguri.gr.common.security.CustomUserDetailService" />
+		<beans:bean id="customUserDetailProvider" class="com.gguri.gr.common.security.CustomUserDetailProvider">
+			<beans:property name="userDetailsService" ref="customUserDetailService" />
+			<beans:property name="passwordEncoder" ref="bcryptPasswordEncoder" />
+		</beans:bean>
+        
+        <!-- LOGIN화면 resources 적용하기 -->
+        <http pattern="/resources/**" security="none"></http>
+        <http auto-config="true" use-expressions="true">
+        	<!-- 
+        		member : 정회원
+        		user   : 준회원
+        		admin  : 관리자
+        		**     : 모든회원
+        	 -->
+            <intercept-url pattern="/member/**" access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')"/>
+		    <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER','ROLE_MEMBER','ROLE_ADMIN')"/>
+		    <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		    <intercept-url pattern="/**" access="permitAll"/>
+		    
+		   
+		    <form-login login-page="/login"
+                  username-parameter="id"
+                  password-parameter="pw"       
+                  login-processing-url="/login"
+                  default-target-url="/login"
+                  authentication-success-handler-ref="customLoginSuccessHandler"
+                  authentication-failure-handler-ref="customLoginFailureHandler"
+            />
+            
+            <logout logout-url="/logout" logout-success-url="/" />
+
+            <!-- 중복로그인 방지 -->
+            <session-management>
+                  <concurrency-control max-sessions="1" expired-url="/login_duplicate"/>
+            </session-management>
+        </http>
+        
+        <authentication-manager>
+            <authentication-provider ref="customUserDetailProvider" />
+            
+            <authentication-provider user-service-ref="customUserDetailService">
+		     	<password-encoder ref="bcryptPasswordEncoder"></password-encoder>
+		  	</authentication-provider>
+            
+            <!-- <authentication-provider>
+                <user-service>
+                    <user name="qhshef" password="minsub113!" authorities="ROLE_ADMIN"/>
+                    <user name="guest" password="guest" authorities="ROLE_USER"/>
+                    <user name="guest2" password="guest" authorities="ROLE_USER"/>
+                    <user name="guest3" password="guest" authorities="ROLE_USER"/>
+                </user-service>
+            </authentication-provider> -->
+        </authentication-manager>
+</beans:beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gguri.gr.web.mapper.MobileMapper">
+
+	<select id="getTokens" parameterType="hashmap" resultType="String">
+		/* getTokens */
+		select token from mobile_fcm 
+		where 1=1
+		<if test="type == 'is_notice_aca'">
+			and is_notice_aca = 'Y'
+		</if>
+		<if test="type == 'is_notice_non'">
+			and is_notice_non = 'Y'
+		</if>
+		<if test="type == 'is_notice_job'">
+			and is_notice_job = 'Y'
+		</if>
+		<if test="type == 'is_notice_gen'">
+			and is_notice_gen = 'Y'
+		</if>
+	</select>
+
+	<insert id="saveUserToken">
+		/* saveUserToken */
+		INSERT INTO mobile_fcm
+			(
+				androidID,
+				token,
+				reg_dt
+			)
+		VALUES
+			(
+				#{androidID},
+				#{token},
+				now()
+			)
+		ON DUPLICATE KEY UPDATE 
+			token = #{token},
+			update_dt = now()
+	</insert>
+
+</mapper>

@@ -132,6 +132,8 @@
 			getMenu();
 			getBusTime();
 			hideLoadingBar();
+			
+			window.Android.javascriptTest();
 		});
 		
 		function hideLoadingBar() {
@@ -141,6 +143,7 @@
 		// 슬라이드 배너
 		function getBanner() {
 			var banner = $("#banner");
+		
 
 			banner.find('img').hide();
 			banner.find('img').first().show();
@@ -173,13 +176,13 @@
 					var length = data.academic.length;
 					var content = data.academic;;
 					
-					getNoriceDetail(0, data);
+					getNoticeDetail(0, data);
 					
 					// 이전 클릭 시
 					$(".prev").click(function() {
 						if (num > 0) {
 							num--;
-							getNoriceDetail(num, data);
+							getNoticeDetail(num, data);
 						}
 					});
 					
@@ -187,7 +190,7 @@
 					$(".next").click(function() {
 						if (num < 3) {
 							num++;
-							getNoriceDetail(num, data);
+							getNoticeDetail(num, data);
 						}
 					});
 				},
@@ -199,7 +202,7 @@
 			});
 		}
 		
-		function getNoriceDetail(num, data) {
+		function getNoticeDetail(num, data) {
 			var notice_title;
 			var aca = "학사공지";
 			var non = "비교과 프로그램 운영공지";
@@ -299,6 +302,9 @@
 			
 			cur_time = cur_hour + ":" + cur_min; 
 			
+			console.log("${_csrf.headerName}");
+			console.log("${_csrf.token}");
+			
 			$.ajax({
 				type : "POST",
 				url : "/bus/getBustable.json",
@@ -336,6 +342,33 @@
 						cur_bus_time = to_sch_list[0].time_start;
 					}
 					$(".bus_sch").children().eq(1).html(cur_bus_time);					
+				},
+				error : function(xhr, status, error) {
+					console.log("xhr : " + xhr);
+					console.log("status : " + status);
+					console.log("error : " + error);
+				}
+			});
+		}
+		
+		function testEcho(token, androidID) {
+			console.log("testEcho call");
+			console.log(androidID);
+			
+			$.ajax({
+				type : "POST",
+				url : "/mobile/saveUserToken.json",
+				beforeSend : function(xhr) {   
+					/*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+					xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	            data : {
+	            	androidID : androidID,
+	            	token : token
+	            },
+				datatype : "json",
+				success : function(data) {
+					console.log(data);
 				},
 				error : function(xhr, status, error) {
 					console.log("xhr : " + xhr);
