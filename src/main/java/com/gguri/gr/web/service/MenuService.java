@@ -1,7 +1,6 @@
 package com.gguri.gr.web.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -68,6 +67,7 @@ public class MenuService {
             		lunch = par_row.get(i).select("td").eq(1).text();
             		dinner = par_row.get(i).select("td").eq(2).text();
             		
+            		map.put("today", today);
             		map.put("todayBreakfast", breakfast);
             		map.put("todayLunch", lunch);
             		map.put("todayDinner", dinner);
@@ -77,6 +77,7 @@ public class MenuService {
             		lunch = par_row.get(i).select("td").eq(1).text();
             		dinner = par_row.get(i).select("td").eq(2).text();
 
+            		map.put("today", today);
             		map.put("todayBreakfast", breakfast);
             		map.put("todayLunch", lunch);
             		map.put("todayDinner", dinner);
