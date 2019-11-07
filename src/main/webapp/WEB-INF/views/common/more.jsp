@@ -10,15 +10,9 @@
 	<body>
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		
-		<div>
-			<div id="banner">
-				<img src="/resources/img/banner1.png">
-				<img src="/resources/img/banner2.png">
-				<img src="/resources/img/banner3.png">
-			</div>
+		<div class="banner">
+			<img src="/resources/img/soon.png">
 		</div>
-		
-		<div class="division"></div>
 		
 		<table class="more_category">
 			<caption>
@@ -34,16 +28,16 @@
 
 			<tbody>
 				<tr>
-					<td><img src="/resources/img/schoolbus.png">교내버스</td>
-					<td><img src="/resources/img/duksung.png">덕성여객</td>
-					<td><img src="/resources/img/overnight.png">외박신청</td>
-					<td><img src="/resources/img/lms.png">LMS</td>
+					<td><a href="https://www.ggu.ac.kr/sub050501"><img src="/resources/img/schoolbus.png">교내버스</a></td>
+					<td><a href="/bus"><img src="/resources/img/duksung.png">덕성여객</a></td>
+					<td><a href="https://dorm.ggu.ac.kr/login/authority/login/redirect/eNortrKwUtIvLk0yMDEwVrIGXDAhMQPf"><img src="/resources/img/overnight.png">외박신청</a></td>
+					<td><a href="https://lms.ggu.ac.kr/"><img src="/resources/img/lms.png">LMS</a></td>
 				</tr>   
 				<tr>
-					<td><img src="/resources/img/delivery.png">꾸르맛집</td>
-					<td><img src="/resources/img/anoytalk.png">익명수다</td>
-					<td><img src="/resources/img/freetalk.png">자유수다</td>
-					<td><img src="/resources/img/_menu.png">식단표</td>
+					<td><a href="/delivery"><img src="/resources/img/delivery.png">꾸르맛집</a></td>
+					<td><a href="/menu"><img src="/resources/img/_menu.png">식단표</a></td>
+					<td class="none"><img src="/resources/img/anoytalk.png">익명수다</a></td>
+					<td class="none"><img src="/resources/img/freetalk.png">자유수다</a></td>
 				</tr>
 			</tbody>
 		</table>
@@ -76,7 +70,14 @@
 	
 	<script>
 		$(document).ready(function() {
-			getBanner();
+		});
+		
+		$(".none").click(function() {
+			Swal.fire({
+			  icon: 'error',
+			  title: '아직 개발중입니다!',
+			  text: '문의사항은 qhshef@gmail.com으로 보내주세요.'
+			});
 		});
 	
 		// 슬라이드 배너

@@ -71,9 +71,12 @@
 
 <!-- JS -->
 <script type="text/javascript" src="/resources/js/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/resources/js/sweetalert2.min.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="/resources/css/style.css?ver=test_45">
+<link rel="stylesheet" href="/resources/css/style.css?ver=test_65">
+<link rel="stylesheet" href="/resources/css/sweetalert2.css?ver=test_3">
 
 <!-- ICON -->
 <!-- <link rel="shortcut icon" href="/img/favicon.png">
@@ -96,7 +99,7 @@
 	 */
 	function textLengthOverCut(txt, len, lastTxt) {
 	    if (len == "" || len == null) { // 기본값
-	        len = 18;
+	        len = 20;
 	    }
 	    if (lastTxt == "" || lastTxt == null) { // 기본값
 	        lastTxt = "...";
@@ -148,7 +151,17 @@
 		return cur_hour + cur_min + cur_seconds;
 	}
 	
-	function getUserInfo() {
-		
+	/** 
+	 * URL 파라미터 가져오기
+	 * 2019.10.03
+	 *  
+	 * param : 파라미터 key값 
+	 *
+	 * 출처: https://gocoder.tistory.com/576 [고코더 IT Express]
+	 */
+	function getURLParams(name) {
+		name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
 </script>

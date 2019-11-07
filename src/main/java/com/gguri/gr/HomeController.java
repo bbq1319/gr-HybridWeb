@@ -43,6 +43,16 @@ public class HomeController {
 		return "/bus";
 	}
 	
+	@RequestMapping(value = "/delivery", method = RequestMethod.GET)
+	public String delivery(Locale locale, Model model) {
+		return "/delivery";
+	}
+
+	@RequestMapping(value = "/delivery_info", method = RequestMethod.GET)
+	public String delivery_info(Locale locale, Model model) {
+		return "/delivery_info";
+	}
+	
 	@RequestMapping(value = "/more", method = RequestMethod.GET)
 	public String more(Locale locale, Model model) {
 		return "/common/more";

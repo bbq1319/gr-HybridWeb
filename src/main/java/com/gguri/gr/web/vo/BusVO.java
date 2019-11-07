@@ -7,6 +7,7 @@ public class BusVO {
 	String time_start;
 	String bus_no;
 	String curTime;
+	String via;
 	
 	public int getIdx() {
 		return idx;
@@ -46,6 +47,14 @@ public class BusVO {
 
 	public void setCurTime(String curTime) {
 		this.curTime = curTime;
+	}
+
+	public String getVia() {
+		return via;
+	}
+
+	public void setVia(String via) {
+		this.via = via;
 	}
 	
 }

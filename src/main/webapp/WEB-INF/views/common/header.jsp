@@ -14,11 +14,12 @@
 		<div class="app_name">
 			<a href="/">금알</a>
 		</div>
+		<%-- 
 		<div class="head_login">
 			<a href="/login">
 				<img src="/resources/img/login.png">
 			</a>
-			<%-- <sec:authorize access="isAnonymous()">
+			<sec:authorize access="isAnonymous()">
 				<a href="/login">
 					<img src="/resources/img/login.png">
 				</a>
@@ -28,8 +29,9 @@
 				<a href="/info">
 					<img src="/resources/img/login.png">
 				</a>
-			</sec:authorize> --%>
+			</sec:authorize>
 		</div>
+		 --%>
 	</div>
 	
 	<hr color="gray" width="100%">

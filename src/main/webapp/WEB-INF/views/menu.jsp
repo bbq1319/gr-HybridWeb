@@ -85,6 +85,7 @@
 			datatype : "json",
 			success : function(data) {
 				allMenuList = data.allMenuList;
+				today = data.today;
 				
 				for(var i in allMenuList) {
 					if(data.today == allMenuList[i].today) {
@@ -94,10 +95,20 @@
 						todayDinner = allMenuList[i].dinner.replace(/\s/g, '<br>');
 						break;
 					}
+					
+					console.log(i);
+					
+					if(i == allMenuList.length-1) {
+						cur_cnt = i;
+						today = allMenuList[cur_cnt].today;
+						todayBreakfast = allMenuList[i].breakfast.replace(/\s/g, '<br>');
+						todayLunch = allMenuList[i].lunch.replace(/\s/g, '<br>');
+						todayDinner = allMenuList[i].dinner.replace(/\s/g, '<br>');
+					}
 				}
 				
 				highlightMenu($("#breakfast"));
-				$("#date").html(data.today);
+				$("#date").html(today);
 				$("#body").html(todayBreakfast);
 			},
 			error : function(xhr, status, error) {

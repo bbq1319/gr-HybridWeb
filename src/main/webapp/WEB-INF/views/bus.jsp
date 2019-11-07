@@ -10,41 +10,35 @@
 	<body>
 		<%@ include file="/WEB-INF/views/common/header.jsp"%>
 		
-		<div class="wrap">
-			<div class="bus_top">
-				<div>쉽게 확인하고<br>버스 놓치지 말자!</div> 
-				<a href="https://www.ggu.ac.kr/sub050501">학교버스 시간표 바로가기 ></a>
-			</div>
-		</div>
-		
-		<div class="bus_mid">
-			덕성여객 시간표
-		</div>
-		
-		<div class="bus_bot">
-			<div class="bus_type">
-				<div>학교 > 터미널</div>
-				<div>터미널 > 학교</div>		
-			</div>
+		<div class="bus_wrap">
+			<ul class="bus_nav">
+				<li><span>학교 > 터미널</span></li>
+				<li><span>터미널 > 학교</span></li>
+			</ul>
+			<ul class="bus_info">
+				<li class="come"> 다가오는 버스</li>
+				<li class="leave"> 신원사 경유</li>
+			</ul>
 			
-			<div class="bus_timetable">
-			</div>
+			<table class="bus_table">
+			</table>
+			
+			<p>신원사 경유 버스는<br>표 시간보다 5~10분 정도 여유롭게 나가는게 좋습니다.<br>특히 오전 10시 이전 버스 주의!</p>
 		</div>
-	</body>
-	
 	<script>
 		var date = new Date();
 		var cur_hour;
 		var cur_min;
 		var cur_time;
 		
-		var bus_time = "";
-		var bus_list = "";
-		var cur_bus_time = "";
-		var to_ter = $(".bus_type").children().eq(0);
-		var to_sch = $(".bus_type").children().eq(1);
+		var to_ter = $(".bus_nav").children().eq(0);
+		var to_sch = $(".bus_nav").children().eq(1);
 		var to_ter_list; 
-		var to_sch_list; 
+		var to_sch_list;
+		
+		var blist = "";
+		var cnt = 1;
+		var length = 4;
 		
 		if(date.getHours() < 10)
 			cur_hour = "0" + date.getHours();
@@ -70,7 +64,7 @@
 				to_ter_list = data.schList;
 				to_sch_list = data.terList;
 				
-				getBusTime(to_ter_list, to_ter, to_sch);
+				getBusTime(to_ter, to_ter_list);
 			},
 			error : function(xhr, status, error) {
 				console.log("xhr : " + xhr);
@@ -80,12 +74,50 @@
 		});
 		
 		to_ter.click(function() {
-			getBusTime(to_ter_list, to_ter, to_sch);
+			getBusTime(to_ter, to_ter_list);
 		});
 		to_sch.click(function() {
-			getBusTime(to_sch_list, to_sch, to_ter);
+			getBusTime(to_sch, to_sch_list);
 		});
 		
+		function getBusTime(nav, list) {
+			var cur = true;
+			var size = list.length;
+			
+			nav.parents().children().removeClass('active');
+			nav.addClass('active');
+			cnt = 1;
+			blist = "";
+			
+			for(var i in list) {
+				if(cnt == 1)
+					blist += '<tr>';
+				
+				if(cur && cur_time < list[i].time_start) {
+					blist += '<td class="bus_cur_time">';
+					cur = false;
+				} else {
+					blist += '<td>';
+				}
+				if(list[i].via == 'Y'){
+					blist += 	'<sup>●</sup>' + list[i].time_start;	
+				} else {
+					blist += 	list[i].time_start;
+				}
+				blist += '</td>';
+				
+				if(cnt == length) {
+					blist += '</tr>';
+					cnt = 1;
+				}
+				else 
+					cnt++;
+			}
+			
+			$(".bus_table").html(blist);
+		}
+		
+		/*
 		function getBusTime(list, pos, re_pos) {
 			var reg = "";
 			bus_list = "";
@@ -111,6 +143,6 @@
 						
 			$(".bus_timetable").html(bus_list);
 		}
-		
+		 */
 	</script>
 </html>

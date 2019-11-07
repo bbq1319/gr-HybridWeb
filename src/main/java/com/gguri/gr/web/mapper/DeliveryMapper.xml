@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gguri.gr.web.mapper.DeliveryMapper">
+
+	<select id="getMenuID" resultType="com.gguri.gr.web.vo.DeliveryVO">
+		/* getMenuID */
+		select did from menu group by did;
+	</select>
+
+	<select id="getMenu" resultType="com.gguri.gr.web.vo.DeliveryVO">
+		/* getMenu */
+		<choose>
+			<when test='isMain != null and isMain == "Y"'>
+				select dcode, name, did
+			</when>
+			<otherwise>
+				select *
+			</otherwise>
+		</choose>
+		from menu;
+	</select>
+	
+	<select id="getRestaurantInfo" parameterType="hashmap" resultType="com.gguri.gr.web.vo.DeliveryVO">
+		/* getMenuInfo */
+		select * from menu
+		where dcode = #{dcode};
+	</select>
+	
+	<select id="getMenuInfo" parameterType="hashmap" resultType="com.gguri.gr.web.vo.DeliveryVO">
+		/* getMenuInfo */
+		select * from menu_info
+		where dcode = #{dcode};
+	</select>
+	
+</mapper>
