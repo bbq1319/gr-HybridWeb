@@ -23,8 +23,11 @@
 			<table class="bus_table">
 			</table>
 			
-			<p>신원사 경유 버스는<br>표 시간보다 5~10분 정도 여유롭게 나가는게 좋습니다.<br>특히 오전 10시 이전 버스 주의!</p>
+			<p>신원사 경유 버스는<br>표 시간보다 15~20분 정도 여유롭게 나가는게 좋습니다.<br>특히 오전 10시 이전 버스 주의!</p>
 		</div>
+		
+		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	</body>
 	<script>
 		var date = new Date();
 		var cur_hour;

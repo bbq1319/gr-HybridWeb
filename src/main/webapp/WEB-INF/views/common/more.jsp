@@ -30,7 +30,7 @@
 				<tr>
 					<td><a href="https://www.ggu.ac.kr/sub050501"><img src="/resources/img/schoolbus.png">교내버스</a></td>
 					<td><a href="/bus"><img src="/resources/img/duksung.png">덕성여객</a></td>
-					<td><a href="https://dorm.ggu.ac.kr/login/authority/login/redirect/eNortrKwUtIvLk0yMDEwVrIGXDAhMQPf"><img src="/resources/img/overnight.png">외박신청</a></td>
+					<td><a href="https://dorm.ggu.ac.kr/"><img src="/resources/img/overnight.png">외박신청</a></td>
 					<td><a href="https://lms.ggu.ac.kr/"><img src="/resources/img/lms.png">LMS</a></td>
 				</tr>   
 				<tr>

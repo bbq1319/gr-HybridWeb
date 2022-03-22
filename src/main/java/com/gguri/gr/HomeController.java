@@ -88,4 +88,9 @@ public class HomeController {
 		return "/login/register";
 	}
 	
+	@RequestMapping(value = "/agreement", method = {RequestMethod.POST, RequestMethod.GET})
+	public String agreement(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
+		return "/agreement";
+	}
+	
 }

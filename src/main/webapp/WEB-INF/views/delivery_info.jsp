@@ -33,6 +33,8 @@
 			<div class="restaurant_menu">
 			</div>
 		</div>
+		
+		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</body>
 	
 	<script>
@@ -74,7 +76,7 @@
 				
 				$(".restaurant_title").html(res_info.name);
 				$("#restaurant_table").append(menu_info);
-				$(".restaurant_call").html('<a href="tel:' + res_info.phone + '"><img src="/resources/img/call.png"> 전화주문하기</a>');
+				$(".restaurant_call").html('<a href="tel://' + res_info.phone + '"><img src="/resources/img/call.png"> 전화주문하기</a>');
 				
 				for(var i in menu) {
 					menu_html += '<p>' + menu[i].menu + '<br>';
@@ -86,8 +88,6 @@
 						$(".restaurant_etc").html('');
 				$(".restaurant_etc").append('<span>' + res_info.etc == null ? res_info.etc : "" + '</span>');
 				$(".restaurant_menu").html(menu_html);
-				
-				console.log(res_info);
 			},
 			error : function(xhr, status, error) {
 				console.log("xhr : " + xhr);

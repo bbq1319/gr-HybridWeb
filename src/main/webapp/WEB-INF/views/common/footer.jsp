@@ -6,16 +6,16 @@
 
 	<div class="footer">
 		<div>금강대 알리미</div>
-		<div>문의 : qhshef@gmail.com</div>
+		<div><a href="https://open.kakao.com/o/ghfG4bMb">문의 / 질문하러가기</a></div>
+		<div><a href="/agreement">개인정보 처리방침</a></div>
 		<br>
-		<div id="test"><span></span>GGU ALARM. ALL RIGHTS RESERVED.</div>
+		<div id="test"><span></span>Galert. ALL RIGHTS RESERVED.</div>
 	</div>
 </footer>
 
 
 
 <script>
-
 	$("#test").click(function() {
 		console.log("testEcho call");
 		

@@ -75,8 +75,8 @@
 <script src="/resources/js/sweetalert2.min.js"></script>
 
 <!-- CSS -->
-<link rel="stylesheet" href="/resources/css/style.css?ver=test_65">
-<link rel="stylesheet" href="/resources/css/sweetalert2.css?ver=test_3">
+<link rel="stylesheet" href="/resources/css/style.css?ver=20191122">
+<link rel="stylesheet" href="/resources/css/sweetalert2.css">
 
 <!-- ICON -->
 <!-- <link rel="shortcut icon" href="/img/favicon.png">

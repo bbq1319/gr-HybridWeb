@@ -32,6 +32,8 @@
 				</a>
 			</div>
 		</div>
+		
+		<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	</body>
 	
 	<script>
@@ -95,8 +97,6 @@
 						todayDinner = allMenuList[i].dinner.replace(/\s/g, '<br>');
 						break;
 					}
-					
-					console.log(i);
 					
 					if(i == allMenuList.length-1) {
 						cur_cnt = i;

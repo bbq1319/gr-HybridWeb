@@ -12,7 +12,7 @@
 			</a>
 		</div>
 		<div class="app_name">
-			<a href="/">금알</a>
+			<a href="/"><img alt="title" src="/resources/img/title.png"></a>
 		</div>
 		<%-- 
 		<div class="head_login">
@@ -34,11 +34,37 @@
 		 --%>
 	</div>
 	
-	<hr color="gray" width="100%">
+	<ul class="nav">
+		<li><a href="/"><span>홈</span></a></li>
+		<li><a href="/delivery"><span>꾸르맛집</span></a></li>
+		<li><a href="/menu"><span>식단표</span></a></li>
+		<li><a href="/bus"><span>덕성버스</span></a></li>
+	</ul>
 </header>
 
 
 
 <script>
+	$(function() {
+		setHighlightGnb();
+	});
 	
+	function setHighlightGnb() {
+		var href;
+		var anchor;
+		
+		var nav = $(".nav").children();
+		var length = nav.length;
+		var location = window.location.pathname;
+		
+		for(var i=0; i<length; i++) {
+			anchor = nav.eq(i).children();
+			href = anchor.attr('href')
+			
+			if(location == href || (href.length > 1 && location.includes(href))) {
+				anchor.children().addClass('ul hl');
+				break;
+			}
+		}
+	}
 </script>

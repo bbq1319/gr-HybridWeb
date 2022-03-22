@@ -67,7 +67,9 @@ public class MobileService {
                 notification.put("title", title);
                 
                 JSONObject message = new JSONObject();
-                message.put("condition", "'Notice' in topics");
+                message.put("condition", "'NoticeIOS191122' in topics");
+//                message.put("condition", "'NoticeAnd' in topics");
+//                message.put("condition", "'Notice' in topics");
                 message.put("notification", notification);
                 
                 JSONObject jsonParams = new JSONObject();

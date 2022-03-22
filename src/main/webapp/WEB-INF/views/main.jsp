@@ -28,11 +28,11 @@
 					<col width="25%">
 					<col width="25%">
 				</colgroup>
-				<tr>
-					<td><a href="https://lms.ggu.ac.kr"><img src="/resources/img/lms.png">LMS</a></td>
-					<td><a href="https://www.ggu.ac.kr/sub050501"><img src="/resources/img/schoolbus.png">버스예약</a></td>
-					<td><a href="http://certmis.ggu.ac.kr"><img src="/resources/img/lms.png">종합정보시스템</a></td>
-					<td><a href="https://dorm.ggu.ac.kr/sub0403"><img src="/resources/img/overnight.png">외박신청</a></td>
+				<tr class="gnb">
+					<td><a href="https://lms.ggu.ac.kr"><img src="/resources/img/main_lms.png">LMS</a></td>
+					<td><a href="https://www.ggu.ac.kr/sub050501"><img src="/resources/img/main_bus.png">버스예약</a></td>
+					<td><a href="http://certmis.ggu.ac.kr"><img src="/resources/img/main_certmis.png">종합정보시스템</a></td>
+					<td><a href="https://dorm.ggu.ac.kr/"><img src="/resources/img/main_outdoor.png">외박신청</a></td>
 				</tr>			
 			</table>
 		</div>
@@ -139,6 +139,7 @@
 			
 			// 모바일 통신
 			window.Android.sendNotice();
+			window.webkit.messageHandlers.callbackHandler.postMessage("MessageBody");
 		});
 		
 		function hideLoadingBar() {
@@ -443,6 +444,10 @@
 				
 				if(cur_bus_time == 1){
 					cur_bus_time = data[data.length-1].time_start;
+					
+					if(data[data.length-1].via == "Y") {
+						cur_bus_time = '<sup>●</sup>' + cur_bus_time;  
+					}
 				}
 				
 				$("#mbt").html(cur_bus_time);
@@ -450,6 +455,18 @@
 		}
 		
 		
+		
+		function callNative() {
+			try {
+				webkit.messageHandlers.callbackHandler.postMessage("MessageBody");
+			} catch (err) {
+				alert(err);
+			}
+		}
+		
+		function redHeader() {
+			alert("readHeader() Call");
+		}
 		
 		// function sendNotice (token, androidID) {
 		function sendNotice(token, androidID) {
